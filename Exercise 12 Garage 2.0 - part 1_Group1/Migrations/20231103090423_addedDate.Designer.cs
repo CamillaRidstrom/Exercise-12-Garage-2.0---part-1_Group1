@@ -4,6 +4,7 @@ using Exercise_12_Garage_2._0___part_1_Group1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exercise_12_Garage_2._0___part_1_Group1.Migrations
 {
     [DbContext(typeof(Exercise_12_Garage_2_0___part_1_Group1Context))]
-    partial class Exercise_12_Garage_2_0___part_1_Group1ContextModelSnapshot : ModelSnapshot
+    [Migration("20231103090423_addedDate")]
+    partial class addedDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

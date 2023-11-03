@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Exercise_12_Garage_2._0___part_1_Group1.Data;
 using Exercise_12_Garage_2._0___part_1_Group1.Models;
+using Exercise_12_Garage_2._0___part_1_Group1.Models.ViewModels;
 
 namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
 {
@@ -27,8 +28,23 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
                           Problem("Entity set 'Exercise_12_Garage_2_0___part_1_Group1Context.ParkVehicle'  is null.");
         }
 
-        // GET: ParkVehicles/Details/5
-        public async Task<IActionResult> Details(int? id)
+		public async Task<IActionResult> Search(SearchParkVehicleViewModel vehicle)
+		{
+            var vehicles = _context.ParkVehicle.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(vehicle.RegistrationNumber))
+            {
+                vehicles = vehicles.Where(v => v.RegistrationNumber.StartsWith(vehicle.RegistrationNumber));
+            }
+
+
+            vehicle.Vehicles = await vehicles.ToListAsync();
+
+            return View(vehicle);
+		}
+
+		// GET: ParkVehicles/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.ParkVehicle == null)
             {

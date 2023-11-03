@@ -5,7 +5,9 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Models
     public class ParkVehicle
     {
         [Key] public int Id { get; set; }
-        public string? RegistrationNumber { get; set; }
+        public string RegistrationNumber { get; set; }
+
+        public DateTime ParkingDate { get; set; }
 
         public VehicleType VehicleType { get; set; }
 
