@@ -23,13 +23,13 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
         // GET: ParkVehicles
         public async Task<IActionResult> Index()
         {
-              return _context.ParkVehicle != null ? 
-                          View(await _context.ParkVehicle.ToListAsync()) :
-                          Problem("Entity set 'Exercise_12_Garage_2_0___part_1_Group1Context.ParkVehicle'  is null.");
+            return _context.ParkVehicle != null ?
+                        View(await _context.ParkVehicle.ToListAsync()) :
+                        Problem("Entity set 'Exercise_12_Garage_2_0___part_1_Group1Context.ParkVehicle'  is null.");
         }
 
-		public async Task<IActionResult> Search(SearchParkVehicleViewModel vehicle)
-		{
+        public async Task<IActionResult> Search(SearchParkVehicleViewModel vehicle)
+        {
             var vehicles = _context.ParkVehicle.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(vehicle.RegistrationNumber))
@@ -41,24 +41,36 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
             vehicle.Vehicles = await vehicles.ToListAsync();
 
             return View(vehicle);
-		}
+        }
 
-		// GET: ParkVehicles/Details/5
-		public async Task<IActionResult> Details(int? id)
+        // GET: ParkVehicles/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.ParkVehicle == null)
             {
                 return NotFound();
             }
 
-            var parkVehicle = await _context.ParkVehicle
+            var detailsViewModel = await _context.ParkVehicle
+                .Select(v => new DetailViewModel
+                {
+                    Id = v.Id,
+                    RegistrationNumber = v.RegistrationNumber,
+                    Brand = v.Brand,
+                    Color = v.Color,
+                    Model = v.Model,
+                    NumberOfWheels = v.NumberOfWheels,
+                    ParkingDate = v.ParkingDate,
+                    VehicleType = v.VehicleType
+                })
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (parkVehicle == null)
+
+            if (detailsViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(parkVehicle);
+            return View(detailsViewModel);
         }
 
         // GET: ParkVehicles/Create
@@ -166,14 +178,14 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
             {
                 _context.ParkVehicle.Remove(parkVehicle);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ParkVehicleExists(int id)
         {
-          return (_context.ParkVehicle?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.ParkVehicle?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
