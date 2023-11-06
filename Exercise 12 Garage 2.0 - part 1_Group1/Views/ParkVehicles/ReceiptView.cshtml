@@ -1,0 +1,9 @@
+﻿@model ReceiptViewModel
+
+<h2>Receipt</h2>
+<p>Registration Number: @Model.RegistrationNumber</p>
+<p>Brand: @Model.Brand</p>
+<p>Model: @Model.Model</p>
+<p>Time Parked (hours): @Model.HoursParked , @Model.MinutesParked</p>
+<p>Total Cost: @Model.Cost</p>
+<a asp-action="Index" asp-controller="ParkVehicles" class="btn btn-primary">Return to Main View</a>

@@ -22,6 +22,8 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Models.ViewModels
         [Display(Name = "Wheels")]
         public int? NumberOfWheels { get; set; }
 
+        public string? SortOrder { get; set; }
+
         public IEnumerable<ParkVehicle> Vehicles { get; set; } = new List<ParkVehicle>();
     }
 }

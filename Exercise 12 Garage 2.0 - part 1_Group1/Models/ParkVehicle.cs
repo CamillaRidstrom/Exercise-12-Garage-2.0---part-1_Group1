@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Exercise_12_Garage_2._0___part_1_Group1.Models
 {
@@ -23,6 +24,10 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Models
         [Range(0,10, ErrorMessage ="Wheels value should be within 0 and 10")]
         public int NumberOfWheels { get; set; }
 
-
+        // Set ParkingDate to the current date and time
+        public ParkVehicle()
+        {
+            ParkingDate = DateTime.Now;
+        }
     }
 }

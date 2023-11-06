@@ -6,7 +6,7 @@
 
 <h1>Search</h1>
 
-<form asp-action="Search">
+<form asp-action="Search" asp-route-sortOrder="@Model.SortOrder">
     <div class="form-group">
         <label asp-for="RegistrationNumber" class="control-label"></label>
         <input asp-for="RegistrationNumber" class="form-control" />
@@ -20,16 +20,16 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.RegistrationNumber)
+                    <a class="text-decoration-none" asp-route-sortOrder="@ViewData["RegistrationNumberSort"]" asp-route-RegistrationNumber="@Model.RegistrationNumber">@Html.DisplayNameFor(model => model.RegistrationNumber)</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.VehicleType)
+                    <a class="text-decoration-none" asp-route-sortOrder="@ViewData["VehicleTypeSort"]" asp-route-RegistrationNumber="@Model.RegistrationNumber">@Html.DisplayNameFor(model => model.VehicleType)</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Color)
+                    <a class="text-decoration-none" asp-route-sortOrder="@ViewData["ColorSort"]" asp-route-RegistrationNumber="@Model.RegistrationNumber">@Html.DisplayNameFor(model => model.Color)</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ParkingDate)
+                    <a class="text-decoration-none" asp-route-sortOrder="@ViewData["ParkingDate"]" asp-route-RegistrationNumber="@Model.RegistrationNumber">@Html.DisplayNameFor(model => model.ParkingDate)</a>
                 </th>
                 <th></th>
             </tr>
@@ -48,7 +48,7 @@
                         @Html.DisplayFor(modelItem => item.Color)
                     </td>
                     <td>
-                        @item.ParkingDate.ToString("yy/MM/dd")
+                        @Html.DisplayFor(modelItem => item.ParkingDate)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
