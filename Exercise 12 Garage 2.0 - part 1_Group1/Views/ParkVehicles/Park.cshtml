@@ -1,16 +1,15 @@
 ﻿@model Exercise_12_Garage_2._0___part_1_Group1.Models.ParkVehicle
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Park";
 }
 
-<h1>Create</h1>
+<h1>Park</h1>
 
-<h4>ParkVehicle</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Park">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RegistrationNumber" class="control-label"></label>
@@ -47,7 +46,7 @@
                 <span asp-validation-for="NumberOfWheels" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Park" class="btn btn-primary" />
             </div>
         </form>
     </div>

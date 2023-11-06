@@ -73,18 +73,18 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
             return View(detailsViewModel);
         }
 
-        // GET: ParkVehicles/Create
-        public IActionResult Create()
+        // GET: ParkVehicles/Park
+        public IActionResult Park()
         {
             return View();
         }
 
-        // POST: ParkVehicles/Create
+        // POST: ParkVehicles/Park
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RegistrationNumber,VehicleType,Color,Brand,Model,NumberOfWheels")] ParkVehicle parkVehicle)
+        public async Task<IActionResult> Park([Bind("Id,RegistrationNumber,VehicleType,Color,Brand,Model,NumberOfWheels")] ParkVehicle parkVehicle)
         {
             if (ModelState.IsValid)
             {
