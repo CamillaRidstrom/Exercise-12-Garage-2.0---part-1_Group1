@@ -29,9 +29,9 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
                         Problem("Entity set 'Exercise_12_Garage_2_0___part_1_Group1Context.ParkVehicle'  is null.");
         }
 
-		public async Task<IActionResult> Search(SearchParkVehicleViewModel vehicle)
-		{
-           
+        public async Task<IActionResult> Search(SearchParkVehicleViewModel vehicle)
+        {
+
             var vehicles = _context.ParkVehicle.AsQueryable();
 
             //Search
@@ -75,6 +75,21 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
             vehicle.Vehicles = await vehicles.ToListAsync();
 
             return View(vehicle);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public async Task<IActionResult> IsRegistrationNumberExists(string registrationNumber)
+        {
+            bool isRegistrationNumberExists = false;
+            try
+            {
+                isRegistrationNumberExists = await _context.ParkVehicle.AnyAsync(v => v.RegistrationNumber.Equals(registrationNumber));
+                return Json(!isRegistrationNumberExists);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
         }
 
         // GET: ParkVehicles/Details/5
@@ -122,9 +137,18 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(parkVehicle);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (await _context.ParkVehicle.AnyAsync(v => v.RegistrationNumber.Equals(parkVehicle.RegistrationNumber)))
+                {
+                    ModelState.AddModelError("RegistrationNumber", "Registration Number already exists");
+                }
+                else
+                {
+                    _context.Add(parkVehicle);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+
+                }
+
             }
             return View(parkVehicle);
         }
@@ -212,7 +236,7 @@ namespace Exercise_12_Garage_2._0___part_1_Group1.Controllers
 
             if (parkVehicle != null)
             {
-                
+
 
                 var timePassed = DateTime.Now - parkVehicle.ParkingDate;
                 var hoursRoundedDown = (int)Math.Floor(timePassed.TotalHours);
